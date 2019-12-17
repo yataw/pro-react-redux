@@ -1,0 +1,21 @@
+.error-simple {
+    color: #da7010;
+    position: relative;
+    height: auto;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.error-simple__msg:not(:last-child) {
+    margin-bottom: .5rem;
+}
+
+.error-simple__pic {
+    width: 50px;
+    height: 50px;
+    align-self: center;
+    margin-bottom: 1rem;
+}
