@@ -2,7 +2,7 @@
 class SwapiService {
     baseUrl_ = `https://swapi.co/api/`;
 
-    async getResource(url) {
+     getResource = async (url) => {
         const res = await fetch(`${this.baseUrl_}${url}`);
         const body = await res.json();
 
@@ -12,44 +12,44 @@ class SwapiService {
         return body;
     }
 
-    async getPerson(id) {
+    getPerson = async (id) => {
         const person = await this.getResource(`people/${id}`);
 
         return this.transformPerson_(person);
     }
 
-    async getAllPeople() {
+    getAllPeople = async () => {
         const people = await this.getResource('people');
 
         return people.results.map(this.transformPerson_);
     }
 
-    async getPlanet(id) {
+    getPlanet = async (id) => {
         const planet = await this.getResource(`planets/${id}`);
 
         return this.transformPlanet_(planet);
     }
 
-    async getAllPlanets() {
+    getAllPlanets = async () => {
         const planets = await this.getResource('planets');
 
         return planets.results.map(this.transformPlanet_);
     }
 
-    async getStarship(id) {
+    getStarship = async (id) => {
         const starship = await this.getResource(`starships/${id}`);
 
         return this.transformStarship_(starship);
     }
 
-    async getAllStarships() {
+    getAllStarships = async () => {
 
         const starships = await this.getResource('starships');
 
         return starships.results.map(this.transformStarship_);
     }
 
-    extractId(item) {
+    extractId = (item) => {
         const id = (item.url.match(/(\d+)\/$/) || {})[1];
 
         if (!id)
@@ -58,7 +58,7 @@ class SwapiService {
         return id;
     }
 
-    transformPlanet_(planet) {
+    transformPlanet_ = (planet) => {
         const id = this.extractId(planet);
 
         return {
@@ -70,7 +70,7 @@ class SwapiService {
         }
     }
 
-    transformStarship_(starship) {
+    transformStarship_ = (starship) => {
         const id = this.extractId(starship);
 
         return {
@@ -86,15 +86,15 @@ class SwapiService {
         }
     }
 
-    transformPerson_(person) {
+    transformPerson_ = (person) => {
         const id = this.extractId(person);
 
         return {
             id,
             name: person.name,
             gender: person.gender,
-            birthYear: person.birthYear,
-            eveColor: person.eveColor
+            birthYear: person.birth_year,
+            eyeColor: person.eye_color
         }
     }
 }
