@@ -32,6 +32,11 @@ export default class App extends Component {
     this.setState({ hasError: true });
   }
 
+  onPersonSelected = (selectedPerson) => {
+    this.setState({ selectedPerson });
+  };
+
+
   render() {
 
     if (this.state.hasError) {
@@ -56,7 +61,7 @@ export default class App extends Component {
           <ErrorButton />
         </div>
 
-        <PeoplePage />
+        <PeoplePage getData={this.swapiService.getAllPeople}/>
 
         <div className="row mb2">
           <div className="col-md-6">
