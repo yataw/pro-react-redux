@@ -62,6 +62,11 @@ Understanding:
 - you can't use hooks in classes
 see: https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/
 
+# Redux
+
+- reducer - pure function (1. result depends only on params 2. It doesn't change anything (arguments, environment))
+- connect from 'react-redux' - usual HoC, that creates new component, which wrap ours and give store from Context
+
 # Unsortered
 
 {} in JSX means that it should interpreted like jsx/javascript
