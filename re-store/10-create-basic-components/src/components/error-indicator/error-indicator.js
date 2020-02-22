@@ -1,8 +1,10 @@
 import React from 'react';
 import './error-indicator.css';
 
-const ErrorIndicator = () => {
+import {withBookstoreService} from '../hoc/index';
+
+const ErrorIndicator = (props) => {
   return <div>Error!</div>;
 };
 
-export default ErrorIndicator;
+export default withBookstoreService()(ErrorIndicator);
