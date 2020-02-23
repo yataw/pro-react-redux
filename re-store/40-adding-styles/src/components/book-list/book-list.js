@@ -3,47 +3,56 @@ import BookListItem from '../book-list-item';
 import { connect } from 'react-redux';
 
 import { withBookstoreService } from '../hoc';
-import { booksLoaded } from '../../actions';
 import { compose } from '../../utils';
 
 import './book-list.css';
+import Spinner from "../spinner";
+import ErrorIndicator from "../error-indicator";
+import {bookAddedToCart} from "../../actions";
 
 class BookList extends Component {
+    componentDidMount() {
+        const { bookstoreService } = this.props;
 
-  componentDidMount() {
-    // 1. receive data
-    const { bookstoreService } = this.props;
-    const data = bookstoreService.getBooks();
+        bookstoreService.getBooks();
+    }
 
-    // 2. dispacth action to store
-    this.props.booksLoaded(data);
-  }
+    render() {
+        const { books, loading, error, onAddedToCart } = this.props;
 
-  render() {
-    const { books } = this.props;
-    return (
-      <ul className="book-list">
-        {
-          books.map((book) => {
-            return (
-              <li key={book.id}><BookListItem book={book}/></li>
-            )
-          })
-        }
-      </ul>
-    );
-  }
+        if (error)
+            return <ErrorIndicator/>;
+
+        if (loading)
+            return <Spinner/>;
+
+        return (
+            <ul className="book-list">
+                {
+                    books.map((book) => {
+                        const {id} = book;
+
+                        return (
+                            <li key={id}>
+                                <BookListItem book={book} onAddedToCart={() => onAddedToCart(id)}/>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        );
+    }
 }
 
-const mapStateToProps = ({ books }) => {
-  return { books };
+const mapStateToProps = ({bookList: { books, loading, error }}) => {
+    return { books, loading, error };
 };
 
 const mapDispatchToProps = {
-  booksLoaded
-};
+    onAddedToCart: bookAddedToCart
+}
 
 export default compose(
-  withBookstoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
+    withBookstoreService(),
+    connect(mapStateToProps, mapDispatchToProps)
 )(BookList);
